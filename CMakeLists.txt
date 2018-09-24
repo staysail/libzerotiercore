@@ -21,7 +21,7 @@
 cmake_minimum_required(VERSION 3.1)
 include (GNUInstallDirs)
 
-project(zerotiercore LANGUAGES CXX VERSION 0.1)
+project(zerotiercore LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 
 # Git submodule -- we use that to get ZeroTierOne
