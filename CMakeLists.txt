@@ -21,7 +21,7 @@
 cmake_minimum_required(VERSION 3.1)
 include (GNUInstallDirs)
 
-project(zerotiercore)
+project(zerotiercore LANGUAGES CXX VERSION 0.1)
 set(CMAKE_CXX_STANDARD 11)
 
 # Git submodule -- we use that to get ZeroTierOne
@@ -49,26 +49,24 @@ endif()
 file(GLOB ztsrcs ZeroTierOne/node/*.cpp)
 add_library(${PROJECT_NAME} ${ztsrcs})
 
-set_target_properties (${PROJECT_NAME}
-        PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-set_target_properties (${PROJECT_NAME}
-        PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+# Because we are going to expose this as a C library, we need to depend on
+# the C++ runtime.
+target_link_libraries(${PROJECT_NAME} PRIVATE
+	${CMAKE_CXX_IMPLICIT_LINK_LIBRARIES})
 
 install(TARGETS ${PROJECT_NAME}
 	EXPORT ${PROJECT_NAME}-target
-	FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT library
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT library
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT library
+	INCLUDES DESTINATION include
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 install(FILES ZeroTierOne/include/ZeroTierOne.h
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/zerotiercore
-	COMPONENT headers
 )
 
 install(EXPORT ${PROJECT_NAME}-target
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 	FILE ${PROJECT_NAME}-config.cmake
 	NAMESPACE zerotiercore::
-	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
-
