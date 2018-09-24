@@ -1,4 +1,18 @@
 #
+# Copyright 2018 Staysail Systems, Inc. <info@staysail.tech>
+#
+# Use under the terms of the GPLv3, see the file LICENSE.GPLv3 for
+# more details.   Contact info@staysail.tech to make other
+# arrangements for altenrative licensing.
+#
+# Note that the above license *only* pertains to these CMake recipes.
+# The actual ZeroTier code is provided by ZeroTier under a GPLv3
+# license (at this writing) -- please check with them for availability
+# of other license terms.  (We use the same license terms here to avoid
+# confusion.  If more liberal licensing of the CMake recipes provided
+# here is needed for any reason, please contact us and we will be happy
+# to accommodate you.)
+#
 # This CMakeFile drives production of the libzerotiercore project
 # from sources originating from the ZeroTierOne project.  Please see
 # the ZeroTierOne project (github.com/zerotier/ZeroTierOne) for a
