@@ -49,6 +49,14 @@ endif()
 file(GLOB ztsrcs ZeroTierOne/node/*.cpp)
 add_library(${PROJECT_NAME} ${ztsrcs})
 
+# For tracing zerotier:
+#
+# Add a fprintf in node/Trace.cpp at ZT_LOCAL_TRACE
+# e.g.: fprintf(stderr, "ZT_TRACE: %s\n", traceMsgBuf);
+#
+# Uncomment the line below:
+#target_compile_options(${PROJECT_NAME} PRIVATE -DZT_TRACE)
+
 # Because we are going to expose this as a C library, we need to depend on
 # the C++ runtime.
 target_link_libraries(${PROJECT_NAME} PRIVATE
